@@ -18,6 +18,7 @@ MainWindow::MainWindow(QWidget *parent) :
      * Trem1 e Trem2 são os objetos que podem chamar o sinal. Se um outro objeto chamar o
      * sinal UPDATEGUI, não haverá execução da função UPDATEINTERFACE
      */
+
     connect(trem1,SIGNAL(updateGUI(int,int,int)),SLOT(updateInterface(int,int,int)));
     connect(trem2,SIGNAL(updateGUI(int,int,int)),SLOT(updateInterface(int,int,int)));
 
@@ -38,6 +39,7 @@ void MainWindow::updateInterface(int id, int x, int y){
         break;
     }
 }
+
 
 MainWindow::~MainWindow()
 {
@@ -61,3 +63,14 @@ void MainWindow::on_pushButton_2_clicked()
     trem1->terminate();
     trem2->terminate();
 }
+
+void MainWindow::on_horizontalSlider_valueChanged(int value)
+{
+    if(value == 0){
+        trem1->terminate();
+    }else{
+        trem1->setVelocidade(value);
+        trem1->start();
+    }
+}
+
