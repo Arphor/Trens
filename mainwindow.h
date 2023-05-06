@@ -29,6 +29,10 @@ private slots:
 
     void on_horizontalSlider_valueChanged(int value);
 
+    void on_velocity_1_valueChanged(int value);
+
+    void on_velocity_2_valueChanged(int value);
+
 private:
     Ui::MainWindow *ui;
 

@@ -7,10 +7,6 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    tx2 = 330;
-    ty2 = 30;
-    tx1 = 60;
-    ty1 = 30;
     ve1 = 100;
     ve2 = 100;
 
@@ -19,8 +15,8 @@ MainWindow::MainWindow(QWidget *parent) :
     //QTextStream out(stdout);
     //out << "oi" << *t2_x << " " << *t2_y;
 
-    trem1 = new Trem(1,&tx1, &ty1, &tx2, &ty2, &m, &ve1);
-    trem2 = new Trem(2,&tx2, &ty2, &tx1, &ty1, &m, &ve2);
+    trem1 = new Trem(1,60, 30, &m, &ve1);
+    trem2 = new Trem(2,330, 30, &m, &ve2);
 
     /*
      * Conecta o sinal UPDATEGUI à função UPDATEINTERFACE.
@@ -76,8 +72,16 @@ void MainWindow::on_pushButton_2_clicked()
     trem2->terminate();
 }
 
-void MainWindow::on_horizontalSlider_valueChanged(int value)
+
+void MainWindow::on_velocity_1_valueChanged(int value)
 {
     ve1 = value;
+}
+
+
+
+void MainWindow::on_velocity_2_valueChanged(int value)
+{
+    ve2 = value;
 }
 
