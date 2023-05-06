@@ -3,6 +3,8 @@
 
 #include <QMainWindow>
 #include "trem.h"
+#include <QMutex>
+#include <QMutexLocker>
 
 namespace Ui {
 class MainWindow;
@@ -33,6 +35,14 @@ private:
     //Cria os objetos TREM's
     Trem *trem1;
     Trem *trem2;
+    int tx1;
+    int ty1;
+    int tx2;
+    int ty2;
+    int ve1;
+    int ve2;
+    QMutex m;
+
 };
 
 #endif // MAINWINDOW_H
