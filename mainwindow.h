@@ -39,13 +39,25 @@ private:
     //Cria os objetos TREM's
     Trem *trem1;
     Trem *trem2;
-    int tx1;
-    int ty1;
-    int tx2;
-    int ty2;
+    Trem *trem3;
+    Trem *trem4;
+    Trem *trem5;
+    Trem *trem6;
+    Trem *trem7;
     int ve1;
     int ve2;
-    QMutex m;
+    int ve3;
+    int ve4;
+    int ve5;
+    int ve6;
+    int ve7;
+    QMutex m0;
+    QMutex m1;
+    QMutex m2;
+    QMutex m3;
+    QMutex m4;
+    QMutex m5;
+    QMutex m6;
 
 };
 

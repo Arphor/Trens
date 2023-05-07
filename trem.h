@@ -15,7 +15,7 @@
 class Trem: public QThread{
  Q_OBJECT
 public:
-    Trem(int,int,int, QMutex*, int*);  //construtor
+    Trem(int,int,int, QMutex*, QMutex*, QMutex*, QMutex*, int*);  //construtor
     void run();         //função a ser executada pela thread
 
 
@@ -26,7 +26,10 @@ signals:
 private:
    int x;           //posição X do trem na tela
    int y;           //posição Y do trem na tela
-   mutable QMutex *m_mutex;
+   mutable QMutex *m_mutex0;
+   mutable QMutex *m_mutex1;
+   mutable QMutex *m_mutex2;
+   mutable QMutex *m_mutex3;
    int ID;          //ID do trem
    int *velocidade;  //Velocidade. É o tempo de dormir em milisegundos entre a mudança de posição do trem
 };

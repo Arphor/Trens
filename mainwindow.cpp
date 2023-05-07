@@ -9,14 +9,20 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
     ve1 = 100;
     ve2 = 100;
+    ve3 = 100;
+    ve4 = 100;
+    ve5 = 100;
+    ve6 = 100;
+    ve7 = 100;
 
     //Cria o trem com seu (ID, posição X, posição Y)
 
     //QTextStream out(stdout);
     //out << "oi" << *t2_x << " " << *t2_y;
 
-    trem1 = new Trem(1,60, 30, &m, &ve1);
-    trem2 = new Trem(2,330, 30, &m, &ve2);
+    trem1 = new Trem(1,150, 20, &m0, &m1, NULL, NULL, &ve1);
+    trem2 = new Trem(2,300, 20, &m0, NULL, NULL, NULL, &ve2);
+    trem3 = new Trem(3, 80, 140, &m1, NULL, NULL, NULL, &ve2);
 
     /*
      * Conecta o sinal UPDATEGUI à função UPDATEINTERFACE.
@@ -28,6 +34,11 @@ MainWindow::MainWindow(QWidget *parent) :
 
     connect(trem1,SIGNAL(updateGUI(int,int,int)),SLOT(updateInterface(int,int,int)));
     connect(trem2,SIGNAL(updateGUI(int,int,int)),SLOT(updateInterface(int,int,int)));
+    connect(trem3,SIGNAL(updateGUI(int,int,int)),SLOT(updateInterface(int,int,int)));
+
+    trem1->start();
+    trem2->start();
+    trem3->start();
 
 
 
@@ -42,6 +53,8 @@ void MainWindow::updateInterface(int id, int x, int y){
     case 2: //Atualiza a posição do objeto da tela (quadrado) que representa o trem2
         ui->label_trem2->setGeometry(x,y,21,17);
         break;
+    case 3:
+        ui->label_trem3->setGeometry(x,y,21,17);
     default:
         break;
     }
@@ -50,28 +63,36 @@ void MainWindow::updateInterface(int id, int x, int y){
 
 MainWindow::~MainWindow()
 {
-    m.~QMutex();
+    m0.~QMutex();
+    m1.~QMutex();
+    m2.~QMutex();
+    m3.~QMutex();
+    m4.~QMutex();
+    m5.~QMutex();
+    m6.~QMutex();
     delete ui;
 }
 
 /*
  * Ao clicar, trens começam execução
- */
+ *
 void MainWindow::on_pushButton_clicked()
 {
     trem1->start();
     trem2->start();
 }
 
+*/
+
 /*
  * Ao clicar, trens param execução
- */
+
 void MainWindow::on_pushButton_2_clicked()
 {
     trem1->terminate();
     trem2->terminate();
 }
-
+*/
 
 void MainWindow::on_velocity_1_valueChanged(int value)
 {
