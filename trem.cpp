@@ -17,7 +17,6 @@ Trem::Trem(int ID, int x, int y, QMutex *m_mutex0,QMutex *m_mutex1,QMutex *m_mut
 
 //Função a ser executada após executar trem->START
 void Trem::run(){
-    QMutex m;
     while(true){
         while(*velocidade != 0){
             switch(ID){
@@ -29,10 +28,15 @@ void Trem::run(){
                     x+=10;
                 }else{
                     if (x == 300 && y < 140){
-
-                           y+=10;
+                        if(y == 120){
+                            m_mutex2->lock();
+                        }
+                        y+=10;
                     }else{
                         if (x > 150 && y == 140){
+                            if (x == 220){
+                                m_mutex2->unlock();
+                            }
                             if (x == 250){
                                 m_mutex1->lock();
                             }
@@ -77,6 +81,9 @@ void Trem::run(){
             case 3: //Trem 3
 
                 if (y == 140 && x <230){
+                    if (x == 220){
+                        m_mutex1->lock();
+                    }
                     if (x == 130){
                         m_mutex0->lock();
                     }
@@ -89,6 +96,9 @@ void Trem::run(){
                         y+=10;
                     }else{
                         if (x > 80 && y == 260){
+                            if (x == 220){
+                                m_mutex1->unlock();
+                            }
                             x-=10;
                         }else{
                             y-=10;
@@ -97,6 +107,37 @@ void Trem::run(){
                 }
                 emit updateGUI(ID, x,y);    //Emite um sinal
                 break;
+
+            case 4:  //Trem 4
+
+                if (y == 140 && x <380){
+                    if (x == 320){
+                        m_mutex0->unlock();
+                    }
+                    if (x == 250){
+                        m_mutex2->unlock();
+                    }
+                    x+=10;
+                }else{
+                    if (x == 380 && y < 260){
+                        y+=10;
+                    }else{
+                        if (x > 230 && y == 260){
+                            if (x == 250){
+                                m_mutex2->lock();
+                            }
+                            x-=10;
+                        }else{
+                            if (y == 160){
+                                m_mutex0->lock();
+                            }
+                            y-=10;
+                        }
+                    }
+                }
+                emit updateGUI(ID, x,y);    //Emite um sinal
+                break;
+
 
             default:
                 break;
