@@ -4,6 +4,7 @@
 #include <QThread>
 #include <QMutex>
 #include <QMutexLocker>
+#include <QSemaphore>
 
 /*
  * Classe Trem herda QThread
@@ -15,7 +16,7 @@
 class Trem: public QThread{
  Q_OBJECT
 public:
-    Trem(int,int,int, QMutex*, QMutex*, QMutex*, QMutex*, int*);  //construtor
+    Trem(int,int,int, QMutex*, QMutex*, QMutex*, QMutex*, QSemaphore*, QSemaphore*, QSemaphore*, int*);  //construtor
     void run();         //função a ser executada pela thread
 
 
@@ -30,6 +31,9 @@ private:
    mutable QMutex *m_mutex1;
    mutable QMutex *m_mutex2;
    mutable QMutex *m_mutex3;
+   mutable QSemaphore *s0;
+   mutable QSemaphore *s1;
+   mutable QSemaphore *s2;
    int ID;          //ID do trem
    int *velocidade;  //Velocidade. É o tempo de dormir em milisegundos entre a mudança de posição do trem
 };

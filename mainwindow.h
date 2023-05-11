@@ -5,6 +5,7 @@
 #include "trem.h"
 #include <QMutex>
 #include <QMutexLocker>
+#include <QSemaphore>
 
 namespace Ui {
 class MainWindow;
@@ -35,6 +36,8 @@ private slots:
 
     void on_velocity_3_valueChanged(int value);
 
+    void on_velocity_4_valueChanged(int value);
+
 private:
     Ui::MainWindow *ui;
 
@@ -60,6 +63,7 @@ private:
     QMutex m4;
     QMutex m5;
     QMutex m6;
+
 
 };
 

@@ -2,6 +2,10 @@
 #include "ui_mainwindow.h"
 #include <QTextStream>
 
+QSemaphore s0(2);
+QSemaphore s1(2);
+QSemaphore s2(2);
+
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
@@ -16,12 +20,14 @@ MainWindow::MainWindow(QWidget *parent) :
     ve7 = 100;
 
     //Cria o trem com seu (ID, posição X, posição Y)
+    s0.acquire(1);
 
 
-    trem1 = new Trem(1,150, 20, &m0, &m1, &m2, NULL, &ve1);
-    trem2 = new Trem(2,300, 20, &m0, NULL, NULL, NULL, &ve2);
-    trem3 = new Trem(3, 80, 140, &m1, &m5, NULL, NULL, &ve3);
-    trem4 = new Trem(4, 230, 140, &m2, &m3, &m5, &m6, &ve4);
+    trem1 = new Trem(1,150, 20, &m0, &m1, &m2, NULL, &s0, NULL, NULL, &ve1);
+    trem2 = new Trem(2,300, 20, &m0, &m3, &m4, NULL, NULL, NULL, NULL, &ve2);
+    trem3 = new Trem(3, 80, 140, &m1, &m5, NULL, NULL, &s0, NULL, NULL, &ve3);
+    trem4 = new Trem(4, 230, 140, &m2, &m3, &m5, &m6, &s0, &s1, &s2, &ve4);
+    trem5 = new Trem(5, 380, 140, &m4, &m6, NULL, NULL, &s0, &s1, &s2, &ve5);
 
     /*
      * Conecta o sinal UPDATEGUI à função UPDATEINTERFACE.
@@ -35,12 +41,14 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(trem2,SIGNAL(updateGUI(int,int,int)),SLOT(updateInterface(int,int,int)));
     connect(trem3,SIGNAL(updateGUI(int,int,int)),SLOT(updateInterface(int,int,int)));
     connect(trem4,SIGNAL(updateGUI(int,int,int)),SLOT(updateInterface(int,int,int)));
+    connect(trem5,SIGNAL(updateGUI(int,int,int)),SLOT(updateInterface(int,int,int)));
 
 
     trem1->start();
     trem2->start();
     trem3->start();
     trem4->start();
+    trem5->start();
 
 
 
@@ -60,6 +68,9 @@ void MainWindow::updateInterface(int id, int x, int y){
         break;
     case 4:
         ui->label_trem4->setGeometry(x, y, 21, 17);
+        break;
+    case 5:
+        ui->label_trem5->setGeometry(x, y, 21, 17);
         break;
     default:
         break;
@@ -116,5 +127,11 @@ void MainWindow::on_velocity_2_valueChanged(int value)
 void MainWindow::on_velocity_3_valueChanged(int value)
 {
     ve3 = value;
+}
+
+
+void MainWindow::on_velocity_4_valueChanged(int value)
+{
+    ve4 = value;
 }
 

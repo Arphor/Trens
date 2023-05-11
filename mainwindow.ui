@@ -554,6 +554,22 @@
      <enum>Qt::Horizontal</enum>
     </property>
    </widget>
+   <widget class="QLabel" name="label_trem5">
+    <property name="geometry">
+     <rect>
+      <x>400</x>
+      <y>260</y>
+      <width>21</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QLabel { background: green}</string>
+    </property>
+    <property name="text">
+     <string>T5</string>
+    </property>
+   </widget>
    <zorder>velocity_1</zorder>
    <zorder>velocity_2</zorder>
    <zorder>label_trilho4_3</zorder>
@@ -586,6 +602,7 @@
    <zorder>velocity_3</zorder>
    <zorder>label_trem4</zorder>
    <zorder>velocity_4</zorder>
+   <zorder>label_trem5</zorder>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
