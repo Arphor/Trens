@@ -25,13 +25,16 @@ void Trem::run(){
             switch(ID){
             case 1:     //Trem 1
                 if (y == 20 && x <300){
+
                     if(x == 280){
+                        s1->acquire(1);
                         m_mutex0->lock();
                     }
                     x+=10;
                 }else{
                     if (x == 300 && y < 140){
                         if(y == 120){
+                            qDebug() << "acquire 1";
                             s0->acquire(1);
                             m_mutex2->lock();
                         }
@@ -44,15 +47,21 @@ void Trem::run(){
                             if (x == 250){
                                 m_mutex1->lock();
                             }
+                            if (x == 210){
+                                if (s0->available() < 2){
+                                    qDebug() << "re 1";
+                                    s0->release(1);
+                                }
+                            }
                             if(x == 280){
+                                if (s1->available() < 2){
+                                    s1->release(1);
+                                }
                                 m_mutex0->unlock();
                             }
                             x-=10;
                         }else{
                             if(y == 130){
-                                if (s0->available() < 2){
-                                    s0->release(1);
-                                }
                                 m_mutex1->unlock();
                             }
                             y-=10;
@@ -71,6 +80,7 @@ void Trem::run(){
                 }else{
                     if (x == 450 && y < 140){
                         if (y == 120){
+                            s2->acquire(1);
                             m_mutex2->lock();
                         }
                         y+=10;
@@ -80,6 +90,7 @@ void Trem::run(){
                                 m_mutex0->lock();
                             }
                             if (x == 400){
+                                s1->acquire(1);
                                 m_mutex1->lock();
                             }
                             if (x == 360){
@@ -88,6 +99,12 @@ void Trem::run(){
                             x-=10;
                         }else{
                             if (y == 120){
+                                if (s1->available() < 2){
+                                    s1->release(1);
+                                }
+                                if (s2->available() < 2){
+                                    s2->release(1);
+                                }
                                 m_mutex1->unlock();
                             }
                             y-=10;
@@ -104,6 +121,7 @@ void Trem::run(){
                         m_mutex1->lock();
                     }
                     if (x == 130){
+                        qDebug() << "acquire 3";
                         s0->acquire(1);
                         m_mutex0->lock();
                     }
@@ -111,15 +129,15 @@ void Trem::run(){
                 }else{
                     if (x == 230 && y < 260){
                         if (y == 160){
+                            if(s0->available() < 2){
+                                s0->release(1);
+                            }
                             m_mutex0->unlock();
                         }
                         y+=10;
                     }else{
                         if (x > 80 && y == 260){
                             if (x == 220){
-                                if(s0->available() < 2){
-                                    s0->release(1);
-                                }
                                 m_mutex1->unlock();
                             }
                             x-=10;
@@ -135,16 +153,20 @@ void Trem::run(){
 
                 if (y == 140 && x <380){
                     if (x == 320){
-                        if (s0->available() < 2){
-                            qDebug() << "release 4";
-                            s0->release(1);
+                        if (s1->available() < 2){
+                            s1->release(1);
                         }
                         m_mutex0->unlock();
                     }
                     if (x == 250){
+                        if (s0->available() < 2){
+                            qDebug() << "release 4";
+                            s0->release(1);
+                        }
                         m_mutex2->unlock();
                     }
                     if (x == 280){
+                        s2->acquire(1);
                         m_mutex1->lock();
                     }
                     if (x == 360){
@@ -165,11 +187,15 @@ void Trem::run(){
                                 m_mutex2->lock();
                             }
                             if (x == 360){
+                                if (s2->available() < 2){
+                                    s2->release(1);
+                                }
                                 m_mutex3->unlock();
                             }
                             x-=10;
                         }else{
                             if (y == 160){
+                                s1->acquire(1);
                                 m_mutex0->lock();
                             }
                             y-=10;
@@ -183,6 +209,10 @@ void Trem::run(){
 
                 if (y == 140 && x <530){
                     if (x == 470){
+                        if (s2->available() < 2){
+                            qDebug() << "release 5";
+                            s2->release(1);
+                        }
                         m_mutex0->unlock();
                     }
                     if (x == 400){
@@ -195,6 +225,8 @@ void Trem::run(){
                     }else{
                         if (x > 380 && y == 260){
                             if (x == 400){
+                                qDebug() << "acquire 5";
+                                s2->acquire(1);
                                 m_mutex1->lock();
                             }
                             x-=10;

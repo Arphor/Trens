@@ -38,6 +38,8 @@ private slots:
 
     void on_velocity_4_valueChanged(int value);
 
+    void on_velocity_5_valueChanged(int value);
+
 private:
     Ui::MainWindow *ui;
 

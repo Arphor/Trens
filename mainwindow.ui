@@ -17,8 +17,8 @@
    <widget class="QLabel" name="label_trem1">
     <property name="geometry">
      <rect>
-      <x>150</x>
-      <y>20</y>
+      <x>280</x>
+      <y>140</y>
       <width>21</width>
       <height>21</height>
      </rect>
@@ -34,7 +34,7 @@
     <property name="geometry">
      <rect>
       <x>300</x>
-      <y>20</y>
+      <y>120</y>
       <width>21</width>
       <height>21</height>
      </rect>
@@ -479,8 +479,8 @@
    <widget class="QLabel" name="label_trem3">
     <property name="geometry">
      <rect>
-      <x>80</x>
-      <y>140</y>
+      <x>230</x>
+      <y>160</y>
       <width>21</width>
       <height>20</height>
      </rect>
@@ -518,7 +518,7 @@
    <widget class="QLabel" name="label_trem4">
     <property name="geometry">
      <rect>
-      <x>230</x>
+      <x>320</x>
       <y>140</y>
       <width>21</width>
       <height>20</height>
@@ -557,8 +557,8 @@
    <widget class="QLabel" name="label_trem5">
     <property name="geometry">
      <rect>
-      <x>400</x>
-      <y>260</y>
+      <x>470</x>
+      <y>140</y>
       <width>21</width>
       <height>20</height>
      </rect>
@@ -568,6 +568,29 @@
     </property>
     <property name="text">
      <string>T5</string>
+    </property>
+   </widget>
+   <widget class="QSlider" name="velocity_5">
+    <property name="geometry">
+     <rect>
+      <x>660</x>
+      <y>110</y>
+      <width>160</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QSlider::handle::horizontal{background-color: green;}
+</string>
+    </property>
+    <property name="maximum">
+     <number>200</number>
+    </property>
+    <property name="value">
+     <number>50</number>
+    </property>
+    <property name="orientation">
+     <enum>Qt::Horizontal</enum>
     </property>
    </widget>
    <zorder>velocity_1</zorder>
@@ -603,6 +626,7 @@
    <zorder>label_trem4</zorder>
    <zorder>velocity_4</zorder>
    <zorder>label_trem5</zorder>
+   <zorder>velocity_5</zorder>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">

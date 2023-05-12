@@ -23,9 +23,9 @@ MainWindow::MainWindow(QWidget *parent) :
     s0.acquire(1);
 
 
-    trem1 = new Trem(1,150, 20, &m0, &m1, &m2, NULL, &s0, NULL, NULL, &ve1);
-    trem2 = new Trem(2,300, 20, &m0, &m3, &m4, NULL, NULL, NULL, NULL, &ve2);
-    trem3 = new Trem(3, 80, 140, &m1, &m5, NULL, NULL, &s0, NULL, NULL, &ve3);
+    trem1 = new Trem(1,150, 20, &m0, &m1, &m2, NULL, &s0, &s1, &s2, &ve1);
+    trem2 = new Trem(2,300, 20, &m0, &m3, &m4, NULL, &s0, &s1, &s2, &ve2);
+    trem3 = new Trem(3, 80, 140, &m1, &m5, NULL, NULL, &s0, &s1, &s2, &ve3);
     trem4 = new Trem(4, 230, 140, &m2, &m3, &m5, &m6, &s0, &s1, &s2, &ve4);
     trem5 = new Trem(5, 380, 140, &m4, &m6, NULL, NULL, &s0, &s1, &s2, &ve5);
 
@@ -133,5 +133,11 @@ void MainWindow::on_velocity_3_valueChanged(int value)
 void MainWindow::on_velocity_4_valueChanged(int value)
 {
     ve4 = value;
+}
+
+
+void MainWindow::on_velocity_5_valueChanged(int value)
+{
+    ve5 = value;
 }
 
