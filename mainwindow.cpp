@@ -5,6 +5,8 @@
 QSemaphore s0(2);
 QSemaphore s1(2);
 QSemaphore s2(2);
+QSemaphore s3(3);
+QSemaphore s4(3);
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -23,11 +25,11 @@ MainWindow::MainWindow(QWidget *parent) :
     s0.acquire(1);
 
 
-    trem1 = new Trem(1,150, 20, &m0, &m1, &m2, NULL, &s0, &s1, &s2, &ve1);
-    trem2 = new Trem(2,300, 20, &m0, &m3, &m4, NULL, &s0, &s1, &s2, &ve2);
-    trem3 = new Trem(3, 80, 140, &m1, &m5, NULL, NULL, &s0, &s1, &s2, &ve3);
-    trem4 = new Trem(4, 230, 140, &m2, &m3, &m5, &m6, &s0, &s1, &s2, &ve4);
-    trem5 = new Trem(5, 380, 140, &m4, &m6, NULL, NULL, &s0, &s1, &s2, &ve5);
+    trem1 = new Trem(1,150, 20, &m0, &m1, &m2, NULL, &s0, &s1, &s2, &s3, &s4, &ve1);
+    trem2 = new Trem(2,300, 20, &m0, &m3, &m4, NULL, &s0, &s1, &s2, &s3, &s4, &ve2);
+    trem3 = new Trem(3, 80, 140, &m1, &m5, NULL, NULL, &s0, &s1, &s2, &s3, &s4, &ve3);
+    trem4 = new Trem(4, 230, 140, &m2, &m3, &m5, &m6, &s0, &s1, &s2, &s3, &s4, &ve4);
+    trem5 = new Trem(5, 380, 140, &m4, &m6, NULL, NULL, &s0, &s1, &s2, &s3, &s4, &ve5);
 
     /*
      * Conecta o sinal UPDATEGUI à função UPDATEINTERFACE.
@@ -80,6 +82,15 @@ void MainWindow::updateInterface(int id, int x, int y){
 
 MainWindow::~MainWindow()
 {
+
+    m0.unlock();
+    m1.unlock();
+    m2.unlock();
+    m3.unlock();
+    m4.unlock();
+    m5.unlock();
+    m6.unlock();
+
     m0.~QMutex();
     m1.~QMutex();
     m2.~QMutex();

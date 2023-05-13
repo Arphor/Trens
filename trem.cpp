@@ -3,7 +3,7 @@
 
 
 //Construtor
-Trem::Trem(int ID, int x, int y, QMutex *m_mutex0,QMutex *m_mutex1,QMutex *m_mutex2,QMutex *m_mutex3, QSemaphore *s0, QSemaphore *s1, QSemaphore *s2, int *v){
+Trem::Trem(int ID, int x, int y, QMutex *m_mutex0,QMutex *m_mutex1,QMutex *m_mutex2,QMutex *m_mutex3, QSemaphore *s0, QSemaphore *s1, QSemaphore *s2, QSemaphore *s3, QSemaphore *s4, int *v){
     this->ID = ID;
     this->x = x;
     this->y = y;
@@ -14,6 +14,8 @@ Trem::Trem(int ID, int x, int y, QMutex *m_mutex0,QMutex *m_mutex1,QMutex *m_mut
     this->s0 = s0;
     this->s1 = s1;
     this->s2 = s2;
+    this->s3 = s3;
+    this->s4 = s4;
     velocidade = v;
 }
 
@@ -27,6 +29,7 @@ void Trem::run(){
                 if (y == 20 && x <300){
 
                     if(x == 280){
+                        s3->acquire(1);
                         s1->acquire(1);
                         m_mutex0->lock();
                     }
@@ -34,7 +37,6 @@ void Trem::run(){
                 }else{
                     if (x == 300 && y < 140){
                         if(y == 120){
-                            qDebug() << "acquire 1";
                             s0->acquire(1);
                             m_mutex2->lock();
                         }
@@ -49,11 +51,13 @@ void Trem::run(){
                             }
                             if (x == 210){
                                 if (s0->available() < 2){
-                                    qDebug() << "re 1";
                                     s0->release(1);
                                 }
                             }
                             if(x == 280){
+                                if (s3->available() < 2){
+                                    s3->release(1);
+                                }
                                 if (s1->available() < 2){
                                     s1->release(1);
                                 }
@@ -90,20 +94,24 @@ void Trem::run(){
                                 m_mutex0->lock();
                             }
                             if (x == 400){
+                                s3->acquire(1);
                                 s1->acquire(1);
                                 m_mutex1->lock();
                             }
                             if (x == 360){
+                                if (s2->available() < 2){
+                                    s2->release(1);
+                                }
                                 m_mutex2->unlock();
                             }
                             x-=10;
                         }else{
                             if (y == 120){
+                                if (s3->available() < 2){
+                                    s3->release(1);
+                                }
                                 if (s1->available() < 2){
                                     s1->release(1);
-                                }
-                                if (s2->available() < 2){
-                                    s2->release(1);
                                 }
                                 m_mutex1->unlock();
                             }
@@ -121,7 +129,7 @@ void Trem::run(){
                         m_mutex1->lock();
                     }
                     if (x == 130){
-                        qDebug() << "acquire 3";
+                        s3->acquire(1);
                         s0->acquire(1);
                         m_mutex0->lock();
                     }
@@ -129,6 +137,9 @@ void Trem::run(){
                 }else{
                     if (x == 230 && y < 260){
                         if (y == 160){
+                            if (s3->available() < 2){
+                                s3->release(1);
+                            }
                             if(s0->available() < 2){
                                 s0->release(1);
                             }
@@ -159,8 +170,10 @@ void Trem::run(){
                         m_mutex0->unlock();
                     }
                     if (x == 250){
+                        if (s3->available() < 2){
+                            s3->release(1);
+                        }
                         if (s0->available() < 2){
-                            qDebug() << "release 4";
                             s0->release(1);
                         }
                         m_mutex2->unlock();
@@ -176,20 +189,20 @@ void Trem::run(){
                 }else{
                     if (x == 380 && y < 260){
                         if (y == 160){
+                            if (s2->available() < 2){
+                                s2->release(1);
+                            }
                             m_mutex1->unlock();
                         }
                         y+=10;
                     }else{
                         if (x > 230 && y == 260){
                             if (x == 250){
-                                qDebug() << "acquire 4";
+                                s3->acquire(1);
                                 s0->acquire(1);
                                 m_mutex2->lock();
                             }
                             if (x == 360){
-                                if (s2->available() < 2){
-                                    s2->release(1);
-                                }
                                 m_mutex3->unlock();
                             }
                             x-=10;
@@ -209,13 +222,12 @@ void Trem::run(){
 
                 if (y == 140 && x <530){
                     if (x == 470){
-                        if (s2->available() < 2){
-                            qDebug() << "release 5";
-                            s2->release(1);
-                        }
                         m_mutex0->unlock();
                     }
                     if (x == 400){
+                        if (s2->available() < 2){
+                            s2->release(1);
+                        }
                         m_mutex1->unlock();
                     }
                     x+=10;
