@@ -29,6 +29,7 @@ void Trem::run(){
                 if (y == 20 && x <300){
 
                     if(x == 280){
+                        s4->acquire(1);
                         s3->acquire(1);
                         s1->acquire(1);
                         m_mutex0->lock();
@@ -55,7 +56,10 @@ void Trem::run(){
                                 }
                             }
                             if(x == 280){
-                                if (s3->available() < 2){
+                                if (s4->available() < 3){
+                                    s4->release(1);
+                                }
+                                if (s3->available() < 3){
                                     s3->release(1);
                                 }
                                 if (s1->available() < 2){
@@ -84,6 +88,7 @@ void Trem::run(){
                 }else{
                     if (x == 450 && y < 140){
                         if (y == 120){
+                            s4->acquire(1);
                             s2->acquire(1);
                             m_mutex2->lock();
                         }
@@ -99,6 +104,9 @@ void Trem::run(){
                                 m_mutex1->lock();
                             }
                             if (x == 360){
+                                if (s4->available() < 3){
+                                    s4->release(1);
+                                }
                                 if (s2->available() < 2){
                                     s2->release(1);
                                 }
@@ -107,7 +115,7 @@ void Trem::run(){
                             x-=10;
                         }else{
                             if (y == 120){
-                                if (s3->available() < 2){
+                                if (s3->available() < 3){
                                     s3->release(1);
                                 }
                                 if (s1->available() < 2){
@@ -137,7 +145,7 @@ void Trem::run(){
                 }else{
                     if (x == 230 && y < 260){
                         if (y == 160){
-                            if (s3->available() < 2){
+                            if (s3->available() < 3){
                                 s3->release(1);
                             }
                             if(s0->available() < 2){
@@ -164,13 +172,16 @@ void Trem::run(){
 
                 if (y == 140 && x <380){
                     if (x == 320){
+                        if (s4->available() < 3){
+                            s4->release(1);
+                        }
                         if (s1->available() < 2){
                             s1->release(1);
                         }
                         m_mutex0->unlock();
                     }
                     if (x == 250){
-                        if (s3->available() < 2){
+                        if (s3->available() < 3){
                             s3->release(1);
                         }
                         if (s0->available() < 2){
@@ -208,6 +219,7 @@ void Trem::run(){
                             x-=10;
                         }else{
                             if (y == 160){
+                                s4->acquire(1);
                                 s1->acquire(1);
                                 m_mutex0->lock();
                             }
@@ -225,6 +237,9 @@ void Trem::run(){
                         m_mutex0->unlock();
                     }
                     if (x == 400){
+                        if (s4->available() < 3){
+                            s4->release(1);
+                        }
                         if (s2->available() < 2){
                             s2->release(1);
                         }
@@ -237,7 +252,7 @@ void Trem::run(){
                     }else{
                         if (x > 380 && y == 260){
                             if (x == 400){
-                                qDebug() << "acquire 5";
+                                s4->acquire(1);
                                 s2->acquire(1);
                                 m_mutex1->lock();
                             }
