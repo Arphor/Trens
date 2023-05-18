@@ -33,7 +33,7 @@
    <widget class="QLabel" name="label_trem2">
     <property name="geometry">
      <rect>
-      <x>300</x>
+      <x>450</x>
       <y>120</y>
       <width>21</width>
       <height>21</height>
@@ -557,8 +557,8 @@
    <widget class="QLabel" name="label_trem5">
     <property name="geometry">
      <rect>
-      <x>470</x>
-      <y>140</y>
+      <x>400</x>
+      <y>260</y>
       <width>21</width>
       <height>20</height>
      </rect>
